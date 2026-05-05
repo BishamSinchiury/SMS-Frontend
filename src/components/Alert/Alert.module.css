@@ -1,0 +1,19 @@
+/* src/components/Alert/Alert.module.css */
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  border-left: 4px solid;
+  font-size: var(--text-sm);
+}
+
+.icon { font-size: var(--text-lg); flex-shrink: 0; }
+.message { flex: 1; }
+.title { font-weight: 600; margin-bottom: var(--space-1); }
+
+.error   { background: #fef2f2; border-color: var(--color-error);   color: #991b1b; }
+.success { background: #f0fdf4; border-color: var(--color-success); color: #166534; }
+.warning { background: #fffbeb; border-color: var(--color-warning); color: #92400e; }
+.info    { background: #eff6ff; border-color: var(--color-info);    color: #075985; }

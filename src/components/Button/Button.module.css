@@ -1,0 +1,47 @@
+/* src/components/Button/Button.module.css */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  border: 2px solid transparent;
+  transition: background 0.15s, opacity 0.15s, transform 0.1s;
+  line-height: 1;
+}
+
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Variants */
+.primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+.primary:hover:not(:disabled) { background: var(--color-primary-dark); }
+
+.secondary {
+  background: transparent;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.secondary:hover:not(:disabled) { background: var(--color-primary); color: #fff; }
+
+.danger {
+  background: var(--color-error);
+  color: #fff;
+}
+.danger:hover:not(:disabled) { opacity: 0.85; }
+
+.ghost {
+  background: transparent;
+  color: var(--color-text-muted);
+}
+.ghost:hover:not(:disabled) { background: var(--color-border); }
+
+/* Sizes */
+.sm { padding: var(--space-1) var(--space-3); font-size: var(--text-sm); }
+.lg { padding: var(--space-3) var(--space-6); font-size: var(--text-lg); }

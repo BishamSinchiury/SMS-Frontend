@@ -1,0 +1,75 @@
+/* src/components/Layout/Layout.module.css */
+
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sidebar + content sit side by side on desktop */
+.body {
+  display: flex;
+  flex: 1;
+}
+
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  min-height: 100vh;
+  padding: var(--space-4) 0;
+
+  /* Hidden on mobile by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 200;
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+}
+
+/* JS adds this class when hamburger is clicked */
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.main {
+  flex: 1;
+  padding: var(--space-6) var(--space-4);
+  width: 100%;           /* full width on mobile */
+  min-width: 0;          /* prevents flex overflow */
+}
+
+/* Overlay behind sidebar on mobile */
+.sidebarOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.4);
+  z-index: 199;
+}
+
+.sidebarOverlay.visible {
+  display: block;
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  .sidebar {
+    position: sticky;     /* back in flow */
+    transform: none;      /* always visible */
+    top: 0;
+    align-self: flex-start;
+  }
+
+  .main {
+    padding: var(--space-8) var(--space-6);
+    max-width: 960px;
+  }
+
+  .sidebarOverlay {
+    display: none !important;  /* never needed on tablet+ */
+  }
+}
