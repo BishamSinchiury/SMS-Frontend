@@ -1,7 +1,7 @@
 // src/components/Layout/Layout.jsx
 import { useState } from 'react';
 import styles from './Layout.module.css';
-import TopBar  from '@/components/Topbar';
+import TopBar  from '@/components/Topbar/Topbar';
 
 export function Layout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);

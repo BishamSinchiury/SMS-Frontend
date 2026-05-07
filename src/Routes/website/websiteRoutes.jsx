@@ -1,9 +1,8 @@
 
+import ServerDown from '@/pages/Website/ServerDown/ServerDown.jsx'
 import Landing from '../../pages/Website/Landing/Landing.jsx'
-import AdminLogin from '@/pages/Website/auth/adminlogin/AdminLogin.jsx'
-
 const websiterouts = [
   { path: '', element: <Landing /> },
-  { path: '/admin/login', element: <AdminLogin /> },
+  { path: '/server-down', element: <ServerDown /> },
 ]
 export default websiterouts
