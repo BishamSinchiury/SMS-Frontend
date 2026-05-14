@@ -3,18 +3,20 @@ import { isSessionValid } from '@/api/sessionHandler'
 
 const SysadminAuthContext = createContext(null)
 
-export function SysadminAuthProvider({children}) {
-    const [sysadmin, setSysadmin] = useState(null)
-    const [loading, setLoading]   = useState(true)
+export function SysadminAuthProvider({ children }) {
+  const [sysadmin, setSysadmin] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-    useEffect(() => {
-        isSessionValid()
-        .then(user => {
-            if (user?.is_sysdamin) setSysadmin(user)
-        })
-        .finally(() => setLoading(false))     
-    }, [])
-    return (
+  useEffect(() => {
+    console.log("this ran")
+    isSessionValid()
+      .then(user => {
+        console.log("user", user)
+        if (user?.is_sysadmin) setSysadmin(user)
+      })
+      .finally(() => setLoading(false))
+  }, [])
+  return (
     <SysadminAuthContext.Provider value={{ sysadmin, setSysadmin, loading }}>
       {children}
     </SysadminAuthContext.Provider>

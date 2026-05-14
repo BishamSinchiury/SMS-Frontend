@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { Alert } from '@/components/Alert/Alert'
 import { Button } from '@/components/Button/Button'
 import { useSysadmin } from '@/context/SysadminAuthContext'
@@ -8,43 +8,48 @@ import { parseApiError } from '@/api/errorHandler'
 import styles from './AdminLogin.module.css'
 
 export default function AdminLogin() {
-  const navigate = useNavigate()
-  const { setSysadmin } = useSysadmin()
+  const { sysadmin, setSysadmin, loading: authLoading } = useSysadmin()
 
   const [step, setStep]             = useState('credentials')
   const [email, setEmail]           = useState('')
   const [password, setPassword]     = useState('')
   const [otp, setOtp]               = useState('')
   const [error, setError]           = useState(null)
-  const [loading, setLoading]       = useState(false)
-  const [showPassword, setShowPassword] = useState(false)   // ← new
+  const [submitting, setSubmitting] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+
+  // While the context is still checking the session, render nothing
+  if (authLoading) return null
+
+  // If already authenticated, redirect immediately — no flash, no useEffect race
+  if (sysadmin) return <Navigate to="/admin/dashboard" replace />
+
 
   async function handleCredentials(e) {
     e.preventDefault()
     setError(null)
-    setLoading(true)
+    setSubmitting(true)
     try {
       await adminLoginStep1(email, password)
       setStep('otp')
     } catch (err) {
-      setError(parseApiError(err))
+      setError(parseApiError(err, { isLogin: true }))
     } finally {
-      setLoading(false)
+      setSubmitting(false)
     }
   }
 
   async function handleOtp(e) {
     e.preventDefault()
     setError(null)
-    setLoading(true)
+    setSubmitting(true)
     try {
       const res = await adminVerifyOtp(email, otp)
-      setSysadmin(res.data.user)
-      navigate('/admin/dashboard')
+      setSysadmin(res.data.user)  // triggers <Navigate> render above — no navigate() needed
     } catch (err) {
-      setError(parseApiError(err))
+      setError(parseApiError(err, { isLogin: true }))
     } finally {
-      setLoading(false)
+      setSubmitting(false)
     }
   }
 
@@ -145,8 +150,8 @@ export default function AdminLogin() {
                 )}
               </div>
 
-              <Button type="submit" variant="primary" disabled={loading}>
-                {loading ? 'Verifying...' : 'Continue'}
+              <Button type="submit" variant="primary" disabled={submitting}>
+                {submitting ? 'Verifying...' : 'Continue'}
               </Button>
 
             </form>
@@ -172,8 +177,8 @@ export default function AdminLogin() {
                 )}
               </div>
 
-              <Button type="submit" variant="primary" disabled={loading}>
-                {loading ? 'Verifying...' : 'Verify & Sign In'}
+              <Button type="submit" variant="primary" disabled={submitting}>
+                {submitting ? 'Verifying...' : 'Verify & Sign In'}
               </Button>
 
               <button

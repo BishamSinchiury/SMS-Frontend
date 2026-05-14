@@ -1,0 +1,336 @@
+/* ── Shell ─────────────────────────────────────────────────────────────── */
+.shell {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--color-bg);
+}
+
+/* ── Desktop sidebar ───────────────────────────────────────────────────── */
+.sidebar {
+  width: 248px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  overflow-y: auto;
+}
+
+/* ── Right pane (topbar + main) ────────────────────────────────────────── */
+.rightPane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* ── Mobile topbar ─────────────────────────────────────────────────────── */
+.topbar {
+  display: none;                      /* hidden on desktop */
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-4);
+  height: 56px;
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.hamburger {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text);
+  flex-shrink: 0;
+  transition: background-color 0.15s;
+}
+
+.hamburger:hover {
+  background-color: var(--color-bg);
+}
+
+.hamburger i {
+  font-size: 1.2rem;
+}
+
+.topbarBrand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.brandIconSm {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.topbarAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ── Backdrop ──────────────────────────────────────────────────────────── */
+.backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 40;
+  pointer-events: none;
+  transition: background-color 0.25s;
+}
+
+.backdropVisible {
+  background-color: rgba(0, 0, 0, 0.4);
+  pointer-events: all;
+}
+
+/* ── Mobile drawer ─────────────────────────────────────────────────────── */
+.drawer {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 280px;
+  background-color: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  flex-direction: column;
+  z-index: 50;
+  transform: translateX(-100%);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+}
+
+.drawerOpen {
+  transform: translateX(0);
+}
+
+/* ── Brand block (shared) ──────────────────────────────────────────────── */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.brandIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background-color: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.brandName {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+.brandRole {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  line-height: 1.2;
+}
+
+/* ── Nav (shared) ──────────────────────────────────────────────────────── */
+.nav {
+  flex: 1;
+  padding: var(--space-4) var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.navGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.navGroupLabel {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: 0 var(--space-3);
+  margin-bottom: var(--space-1);
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.navItem:hover {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.navItem i {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.navItemActive {
+  background-color: #eff6ff;
+  color: var(--color-primary);
+}
+
+.navItemActive:hover {
+  background-color: #dbeafe;
+  color: var(--color-primary-dark);
+}
+
+/* ── User block (shared) ───────────────────────────────────────────────── */
+.userBlock {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-top: 1px solid var(--color-border);
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.userInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.userName {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.userEmail {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.logoutBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.logoutBtn:hover {
+  background-color: #fef2f2;
+  color: var(--color-error);
+  border-color: #fecaca;
+}
+
+.logoutBtn i {
+  font-size: 1rem;
+}
+
+/* ── Main content ──────────────────────────────────────────────────────── */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-8);
+}
+
+/* ── Responsive breakpoint ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Hide desktop sidebar */
+  .sidebar {
+    display: none;
+  }
+
+  /* Show mobile topbar */
+  .topbar {
+    display: flex;
+  }
+
+  /* Enable backdrop and drawer */
+  .backdrop {
+    display: block;
+  }
+
+  .drawer {
+    display: flex;
+  }
+
+  .main {
+    padding: var(--space-4);
+  }
+}

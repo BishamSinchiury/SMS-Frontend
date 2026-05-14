@@ -6,7 +6,6 @@ export { default as api } from './client'
 // Auth helpers — which ones you use depends on JWT vs session
 export { getAccessToken, setAccessToken, clearTokens, initializeAuth } from './tokenStore' // JWT only
 export { isSessionValid } from './sessionHandler'  // Session only
-export { getCsrfToken, ensureCsrfCookie } from './csrf'
 
 // Error utilities — used in every component's catch block
 export { parseApiError, isAuthError, hasFieldErrors } from './errorHandler'

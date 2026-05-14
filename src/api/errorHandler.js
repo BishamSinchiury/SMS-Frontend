@@ -7,7 +7,7 @@
  * @property {Object} fields         - field-level errors { fieldName: "message" }
  */
 
-export function parseApiError(error) {
+export function parseApiError(error, { isLogin = false } = {}) {
 
     // ── No response: network/timeout error ──────────────────────────────────
     // This happens when Django isn't running, the user is offline,
@@ -50,7 +50,9 @@ export function parseApiError(error) {
     if (status === 401) {
         return {
             type: 'auth',
-            message: 'Your session has expired. Please log in again.',
+            message: isLogin
+                ? 'Invalid email or password.'      
+                : 'Your session has expired. Please log in again.',
             fields: {},
         }
     }
